@@ -39,3 +39,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# figma temporary extraction artifacts
+figma_*.json
+page_*.json
+header_components.json
+image_map.json
+figma_sections_dump.txt
+/public/figma/
+/public/figma-previews/
+/scripts/
