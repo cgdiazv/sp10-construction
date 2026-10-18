@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import QualityStrip from "@/components/QualityStrip";
 import EstimateForm from "@/components/EstimateForm";
+import { ArrowUpRight, CheckIcon, ArrowDownIcon } from "@/components/Icons";
 
 export default function Home() {
   const commercialChecklist = [
@@ -80,7 +81,7 @@ export default function Home() {
                     className="inline-flex items-center gap-[18px] bg-[#8b4513] hover:bg-[#73390f] text-white border border-[#8b4513] py-4 px-6 transition-colors rounded-none font-sans font-semibold text-[13px] leading-[16px]"
                   >
                     <span>Explore Commercial</span>
-                    <span aria-hidden="true">↗</span>
+                    <ArrowUpRight className="w-4 h-4" />
                   </Link>
                 </div>
               </div>
@@ -107,7 +108,7 @@ export default function Home() {
                     className="inline-flex items-center gap-[18px] bg-[#8b4513] hover:bg-[#73390f] text-white border border-[#8b4513] py-4 px-6 transition-colors rounded-none font-sans font-semibold text-[13px] leading-[16px]"
                   >
                     <span>Explore Residential</span>
-                    <span aria-hidden="true">↗</span>
+                    <ArrowUpRight className="w-4 h-4" />
                   </Link>
                 </div>
               </div>
@@ -116,8 +117,9 @@ export default function Home() {
             {/* Bottom bar */}
             <div className="flex items-center justify-between py-6 border-t border-white/10 font-sans text-[11px] tracking-wider uppercase text-[#bfc5ce]">
               <span>COMMERCIAL + RESIDENTIAL</span>
-              <a href="#expertise" className="hover:text-white transition-colors">
-                EXPLORE ↓
+              <a href="#expertise" className="hover:text-white transition-colors inline-flex items-center gap-1.5">
+                <span>EXPLORE</span>
+                <ArrowDownIcon className="w-3.5 h-3.5" />
               </a>
             </div>
           </div>
@@ -185,9 +187,7 @@ export default function Home() {
                           key={item}
                           className="flex items-center gap-3 py-2.5 border-b border-[#e8ebef]/70 font-sans text-[13px] text-[#0f172a]"
                         >
-                          <span className="font-sans font-semibold text-[14px] text-[#b8860b]">
-                            ✓
-                          </span>
+                          <CheckIcon className="w-3.5 h-3.5 text-[#b8860b]" />
                           <span>{item}</span>
                         </li>
                       ))}
@@ -199,7 +199,7 @@ export default function Home() {
                     className="w-full inline-flex items-center justify-center gap-[18px] bg-[#8b4513] hover:bg-[#73390f] text-white border border-[#8b4513] py-4 px-6 transition-colors rounded-none font-sans font-semibold text-[13px] leading-[16px]"
                   >
                     <span>View Commercial Services</span>
-                    <span aria-hidden="true">↗</span>
+                    <ArrowUpRight className="w-4 h-4" />
                   </Link>
                 </div>
               </div>
@@ -239,9 +239,7 @@ export default function Home() {
                           key={item}
                           className="flex items-center gap-3 py-2.5 border-b border-[#e8ebef]/70 font-sans text-[13px] text-[#0f172a]"
                         >
-                          <span className="font-sans font-semibold text-[14px] text-[#b8860b]">
-                            ✓
-                          </span>
+                          <CheckIcon className="w-3.5 h-3.5 text-[#b8860b]" />
                           <span>{item}</span>
                         </li>
                       ))}
@@ -253,7 +251,7 @@ export default function Home() {
                     className="w-full inline-flex items-center justify-center gap-[18px] bg-[#8b4513] hover:bg-[#73390f] text-white border border-[#8b4513] py-4 px-6 transition-colors rounded-none font-sans font-semibold text-[13px] leading-[16px]"
                   >
                     <span>View Residential Services</span>
-                    <span aria-hidden="true">↗</span>
+                    <ArrowUpRight className="w-4 h-4" />
                   </Link>
                 </div>
               </div>
@@ -427,7 +425,7 @@ export default function Home() {
                 className="inline-flex items-center justify-center gap-[18px] border border-[#8b4513] text-[#8b4513] hover:bg-[#8b4513] hover:text-white py-4 px-8 transition-colors rounded-none font-sans font-semibold text-[13px] leading-[16px]"
               >
                 <span>View All Projects</span>
-                <span aria-hidden="true">↗</span>
+                <ArrowUpRight className="w-4 h-4" />
               </Link>
             </div>
           </div>

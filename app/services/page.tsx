@@ -3,6 +3,7 @@ import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import QualityStrip from "@/components/QualityStrip";
+import { ArrowUpRight, CheckIcon } from "@/components/Icons";
 
 export default function ServicesPage() {
   const commercialScopes = [
@@ -174,7 +175,7 @@ export default function ServicesPage() {
                           className="flex flex-col py-3 border-b border-[#e8ebef]/70 gap-0.5"
                         >
                           <div className="flex items-center gap-2 font-sans font-semibold text-[13px] text-[#0f172a]">
-                            <span className="text-[#b8860b]">✓</span>
+                            <CheckIcon className="w-3.5 h-3.5 text-[#b8860b]" />
                             <span>{scope.title}</span>
                           </div>
                           <p className="font-sans text-[12px] leading-[18px] text-[#5e6671] pl-5">
@@ -203,7 +204,7 @@ export default function ServicesPage() {
                     className="w-full inline-flex items-center justify-center gap-[18px] bg-[#8b4513] hover:bg-[#73390f] text-white border border-[#8b4513] py-4 px-6 transition-colors rounded-none font-sans font-semibold text-[13px] leading-[16px]"
                   >
                     <span>Request a Commercial Estimate</span>
-                    <span aria-hidden="true">↗</span>
+                    <ArrowUpRight className="w-4 h-4" />
                   </Link>
                 </div>
               </div>
@@ -246,7 +247,7 @@ export default function ServicesPage() {
                           className="flex flex-col py-3 border-b border-[#e8ebef]/70 gap-0.5"
                         >
                           <div className="flex items-center gap-2 font-sans font-semibold text-[13px] text-[#0f172a]">
-                            <span className="text-[#b8860b]">✓</span>
+                            <CheckIcon className="w-3.5 h-3.5 text-[#b8860b]" />
                             <span>{scope.title}</span>
                           </div>
                           <p className="font-sans text-[12px] leading-[18px] text-[#5e6671] pl-5">
@@ -275,7 +276,7 @@ export default function ServicesPage() {
                     className="w-full inline-flex items-center justify-center gap-[18px] bg-[#8b4513] hover:bg-[#73390f] text-white border border-[#8b4513] py-4 px-6 transition-colors rounded-none font-sans font-semibold text-[13px] leading-[16px]"
                   >
                     <span>Request a Residential Estimate</span>
-                    <span aria-hidden="true">↗</span>
+                    <ArrowUpRight className="w-4 h-4" />
                   </Link>
                 </div>
               </div>

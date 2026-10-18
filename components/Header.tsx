@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { ArrowUpRight } from "@/components/Icons";
 
 interface HeaderProps {
   currentPage?: "home" | "services" | "projects" | "contact";
@@ -75,9 +76,7 @@ export default function Header({ currentPage }: HeaderProps) {
             className="inline-flex items-center justify-center gap-[18px] bg-[#8b4513] hover:bg-[#73390f] text-white border border-[#8b4513] py-4 px-6 transition-colors rounded-none font-sans font-semibold text-[13px] leading-[16px]"
           >
             <span>Request an Estimate</span>
-            <span className="text-[17px] leading-none" aria-hidden="true">
-              ↗
-            </span>
+            <ArrowUpRight className="w-4 h-4" />
           </Link>
         </div>
       </div>
@@ -142,9 +141,7 @@ export default function Header({ currentPage }: HeaderProps) {
           className="w-full inline-flex items-center justify-center gap-[18px] bg-[#8b4513] hover:bg-[#73390f] text-white border border-[#8b4513] py-4 px-4 transition-colors rounded-none font-sans font-semibold text-[12px] leading-[15px]"
         >
           <span>Request an Estimate</span>
-          <span className="text-[17px] leading-none" aria-hidden="true">
-            ↗
-          </span>
+          <ArrowUpRight className="w-4 h-4" />
         </Link>
       </div>
     </header>

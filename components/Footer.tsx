@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { ArrowUpRight } from "@/components/Icons";
 
 export default function Footer() {
   return (
@@ -44,14 +45,14 @@ export default function Footer() {
                     className="font-sans text-[13px] leading-[16px] text-[#bfc5ce] hover:text-white transition-colors inline-flex items-center gap-1"
                   >
                     <span>Commercial</span>
-                    <span aria-hidden="true">↗</span>
+                    <ArrowUpRight className="w-3 h-3 text-[#bfc5ce]" />
                   </Link>
                   <Link
                     href="/services#residential"
                     className="font-sans text-[13px] leading-[16px] text-[#bfc5ce] hover:text-white transition-colors inline-flex items-center gap-1"
                   >
                     <span>Residential</span>
-                    <span aria-hidden="true">↗</span>
+                    <ArrowUpRight className="w-3 h-3 text-[#bfc5ce]" />
                   </Link>
                 </div>
               </div>
@@ -70,14 +71,14 @@ export default function Footer() {
                     className="font-sans text-[13px] leading-[16px] text-[#bfc5ce] hover:text-white transition-colors inline-flex items-center gap-1"
                   >
                     <span>Commercial</span>
-                    <span aria-hidden="true">↗</span>
+                    <ArrowUpRight className="w-3 h-3 text-[#bfc5ce]" />
                   </Link>
                   <Link
                     href="/projects?filter=residential"
                     className="font-sans text-[13px] leading-[16px] text-[#bfc5ce] hover:text-white transition-colors inline-flex items-center gap-1"
                   >
                     <span>Residential</span>
-                    <span aria-hidden="true">↗</span>
+                    <ArrowUpRight className="w-3 h-3 text-[#bfc5ce]" />
                   </Link>
                 </div>
               </div>
@@ -90,7 +91,7 @@ export default function Footer() {
                 className="font-sans font-semibold text-[14px] leading-[17px] text-white hover:text-[#bfc5ce] transition-colors inline-flex items-center gap-1"
               >
                 <span>Contact</span>
-                <span aria-hidden="true">↗</span>
+                <ArrowUpRight className="w-3.5 h-3.5 text-white" />
               </Link>
             </div>
           </div>

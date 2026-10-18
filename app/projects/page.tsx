@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { ArrowUpRight } from "@/components/Icons";
 
 export default function ProjectsPage() {
   const [filter, setFilter] = useState<"all" | "commercial" | "residential">("all");
@@ -263,14 +264,14 @@ export default function ProjectsPage() {
                 className="inline-flex items-center justify-center gap-[18px] bg-[#8b4513] hover:bg-[#73390f] text-white border border-[#8b4513] py-4 px-8 transition-colors rounded-none font-sans font-semibold text-[13px] leading-[16px]"
               >
                 <span>Discuss a Commercial Project</span>
-                <span aria-hidden="true">↗</span>
+                <ArrowUpRight className="w-4 h-4" />
               </Link>
               <Link
                 href="/contact"
                 className="inline-flex items-center justify-center gap-[18px] bg-[#8b4513] hover:bg-[#73390f] text-white border border-[#8b4513] py-4 px-8 transition-colors rounded-none font-sans font-semibold text-[13px] leading-[16px]"
               >
                 <span>Discuss a Residential Project</span>
-                <span aria-hidden="true">↗</span>
+                <ArrowUpRight className="w-4 h-4" />
               </Link>
             </div>
           </div>

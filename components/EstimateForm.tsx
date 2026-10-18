@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { ArrowUpRight, CheckIcon, ArrowUpIcon, ChevronDownIcon } from "@/components/Icons";
 
 interface EstimateFormProps {
   sectionTag?: string;
@@ -70,8 +71,8 @@ export default function EstimateForm({
 
             {submitted ? (
               <div className="py-16 text-center flex flex-col items-center gap-4">
-                <div className="w-12 h-12 bg-[#fff4ed] text-[#8b4513] flex items-center justify-center font-bold text-2xl border border-[#8b4513]">
-                  ✓
+                <div className="w-12 h-12 bg-[#fff4ed] text-[#8b4513] flex items-center justify-center border border-[#8b4513]">
+                  <CheckIcon className="w-6 h-6 text-[#8b4513]" />
                 </div>
                 <h4 className="font-oswald text-2xl uppercase text-[#0f172a]">
                   Thank You for Your Inquiry
@@ -229,8 +230,8 @@ export default function EstimateForm({
                           </option>
                         ))}
                       </select>
-                      <span className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-[#0f172a] text-[12px]">
-                        ⌄
+                      <span className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-[#0f172a]">
+                        <ChevronDownIcon className="w-3.5 h-3.5" />
                       </span>
                     </div>
                   </div>
@@ -262,9 +263,7 @@ export default function EstimateForm({
                         if (file) setFileName(file.name);
                       }}
                     />
-                    <span className="text-[24px] text-[#8b4513] leading-none" aria-hidden="true">
-                      ↑
-                    </span>
+                    <ArrowUpIcon className="w-6 h-6 text-[#8b4513]" />
                     <span className="font-sans font-semibold text-[13px] text-[#0f172a]">
                       {fileName || "Add architectural plans / drawings"}
                     </span>
@@ -285,9 +284,7 @@ export default function EstimateForm({
                   className="w-full inline-flex items-center justify-center gap-[18px] bg-[#8b4513] hover:bg-[#73390f] text-white border border-[#8b4513] py-4 px-6 transition-colors rounded-none font-sans font-semibold text-[13px] leading-[16px] cursor-pointer"
                 >
                   <span>Submit Estimate Request</span>
-                  <span className="text-[17px] leading-none" aria-hidden="true">
-                    ↗
-                  </span>
+                  <ArrowUpRight className="w-4 h-4" />
                 </button>
               </form>
             )}
