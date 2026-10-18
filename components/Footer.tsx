@@ -10,15 +10,17 @@ export default function Footer() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-start">
           {/* Company Column (6 cols) */}
           <div className="lg:col-span-6 flex flex-col gap-4">
-            <div className="w-[112px] h-[84px] bg-white flex items-center justify-center p-2 shrink-0">
-              <Image
-                src="/images/sp10-logo.png"
-                alt="SP10 Construction LLC"
-                width={112}
-                height={84}
-                className="object-contain max-h-[70px] w-auto"
-              />
-            </div>
+            <Link href="/" className="inline-block shrink-0" aria-label="SP10 Construction Home">
+              <div className="w-[144px] h-[72px] relative flex items-center">
+                <Image
+                  src="/logo-white.png"
+                  alt="SP10 Construction LLC"
+                  width={144}
+                  height={72}
+                  className="object-contain max-h-[72px] w-auto"
+                />
+              </div>
+            </Link>
             <p className="font-sans text-[16px] leading-[26.4px] text-[#bfc5ce] max-w-[540px]">
               Commercial general contracting. Custom residential construction. Built with
               precision, from the first plan to the final detail.
