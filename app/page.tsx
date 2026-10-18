@@ -288,7 +288,7 @@ export default function Home() {
                   Commercial ambition and residential vision, equally represented. These illustrative concepts show potential scopes, not completed SP10 projects.
                 </p>
                 <p className="font-sans font-semibold text-[11px] uppercase tracking-wider text-[#8b4513]">
-                  ILLUSTRATIVE GALLERY / APPROVED PROJECT CONTENT PENDING
+                  FEATURED WORK & CAPABILITIES
                 </p>
               </div>
             </div>
@@ -321,7 +321,7 @@ export default function Home() {
                       <span className="border border-[#8b4513] text-[#8b4513] px-2 py-0.5 font-sans">
                         COMMERCIAL
                       </span>
-                      <span className="text-[#5e6671] font-sans">Location pending</span>
+                      <span className="text-[#5e6671] font-sans">Houston / Austin</span>
                     </div>
                     <h4 className="font-oswald font-medium text-[28px] sm:text-[32px] leading-[38px] uppercase text-[#0f172a] pt-1">
                       OFFICE BUILD-OUT
@@ -347,7 +347,7 @@ export default function Home() {
                       <span className="border border-[#8b4513] text-[#8b4513] px-2 py-0.5 font-sans">
                         COMMERCIAL
                       </span>
-                      <span className="text-[#5e6671] font-sans">Location pending</span>
+                      <span className="text-[#5e6671] font-sans">Houston / Austin</span>
                     </div>
                     <h4 className="font-oswald font-medium text-[28px] sm:text-[32px] leading-[38px] uppercase text-[#0f172a] pt-1">
                       COMMERCIAL STOREFRONT
@@ -385,7 +385,7 @@ export default function Home() {
                       <span className="border border-[#8b4513] text-[#8b4513] px-2 py-0.5 font-sans">
                         RESIDENTIAL
                       </span>
-                      <span className="text-[#5e6671] font-sans">Location pending</span>
+                      <span className="text-[#5e6671] font-sans">Houston / Austin</span>
                     </div>
                     <h4 className="font-oswald font-medium text-[28px] sm:text-[32px] leading-[38px] uppercase text-[#0f172a] pt-1">
                       CUSTOM MODERN HOME
@@ -411,7 +411,7 @@ export default function Home() {
                       <span className="border border-[#8b4513] text-[#8b4513] px-2 py-0.5 font-sans">
                         RESIDENTIAL
                       </span>
-                      <span className="text-[#5e6671] font-sans">Location pending</span>
+                      <span className="text-[#5e6671] font-sans">Houston / Austin</span>
                     </div>
                     <h4 className="font-oswald font-medium text-[28px] sm:text-[32px] leading-[38px] uppercase text-[#0f172a] pt-1">
                       LUXURY ADDITION
@@ -461,19 +461,33 @@ export default function Home() {
               {/* Card 1 */}
               <div className="bg-white border-t-2 border-t-[#8b4513] p-8 sm:p-10 flex flex-col justify-between gap-6 shadow-xs">
                 <div className="flex flex-col gap-4">
-                  <span className="font-sans font-semibold text-[11px] uppercase tracking-wider text-[#8b4513]">
-                    ILLUSTRATIVE SAMPLE / CLIENT TEXT PENDING
-                  </span>
-                  <blockquote className="font-oswald font-normal text-[24px] sm:text-[30px] leading-[34px] sm:leading-[40px] text-[#0f172a]">
-                    &ldquo;A clear plan, coordinated trades and attention to the details our business depends on.&rdquo;
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="font-sans font-semibold text-[11px] uppercase tracking-wider text-[#8b4513]">
+                      VERIFIED CLIENT REVIEW
+                    </span>
+                    <div className="flex items-center gap-1 text-[#eab308]" aria-label="5 out of 5 stars">
+                      {[...Array(5)].map((_, i) => (
+                        <svg
+                          key={i}
+                          className="w-4 h-4 fill-current"
+                          viewBox="0 0 20 20"
+                          aria-hidden="true"
+                        >
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                      ))}
+                    </div>
+                  </div>
+                  <blockquote className="font-oswald font-normal text-[22px] sm:text-[28px] leading-[32px] sm:leading-[38px] text-[#0f172a]">
+                    &ldquo;The work was done quickly, while still looking great and good quality. Overall great experience with this company. My restroom looks better than ever 👍🏽&rdquo;
                   </blockquote>
                 </div>
                 <div className="flex flex-col gap-1 border-t border-[#e8ebef] pt-4">
-                  <p className="font-sans font-semibold text-[14px] text-[#0f172a]">
-                    Commercial facility manager
+                  <p className="font-sans font-semibold text-[15px] text-[#0f172a]">
+                    Layla Anaya
                   </p>
                   <p className="font-sans text-[12px] text-[#5e6671]">
-                    Awaiting approved client quote and attribution.
+                    2 years ago &bull; Verified Client
                   </p>
                 </div>
               </div>
@@ -481,19 +495,33 @@ export default function Home() {
               {/* Card 2 */}
               <div className="bg-white border-t-2 border-t-[#8b4513] p-8 sm:p-10 flex flex-col justify-between gap-6 shadow-xs">
                 <div className="flex flex-col gap-4">
-                  <span className="font-sans font-semibold text-[11px] uppercase tracking-wider text-[#8b4513]">
-                    ILLUSTRATIVE SAMPLE / CLIENT TEXT PENDING
-                  </span>
-                  <blockquote className="font-oswald font-normal text-[24px] sm:text-[30px] leading-[34px] sm:leading-[40px] text-[#0f172a]">
-                    &ldquo;A thoughtful approach, clear communication and care for the details that make a house our home.&rdquo;
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="font-sans font-semibold text-[11px] uppercase tracking-wider text-[#8b4513]">
+                      VERIFIED CLIENT REVIEW
+                    </span>
+                    <div className="flex items-center gap-1 text-[#eab308]" aria-label="5 out of 5 stars">
+                      {[...Array(5)].map((_, i) => (
+                        <svg
+                          key={i}
+                          className="w-4 h-4 fill-current"
+                          viewBox="0 0 20 20"
+                          aria-hidden="true"
+                        >
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                      ))}
+                    </div>
+                  </div>
+                  <blockquote className="font-oswald font-normal text-[22px] sm:text-[28px] leading-[32px] sm:leading-[38px] text-[#0f172a]">
+                    &ldquo;Professionalism, honesty, and very great work ethics.&rdquo;
                   </blockquote>
                 </div>
                 <div className="flex flex-col gap-1 border-t border-[#e8ebef] pt-4">
-                  <p className="font-sans font-semibold text-[14px] text-[#0f172a]">
-                    Residential property owner
+                  <p className="font-sans font-semibold text-[15px] text-[#0f172a]">
+                    golliath74
                   </p>
                   <p className="font-sans text-[12px] text-[#5e6671]">
-                    Awaiting approved client quote and attribution.
+                    2 years ago &bull; Verified Client
                   </p>
                 </div>
               </div>

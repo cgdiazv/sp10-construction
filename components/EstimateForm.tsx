@@ -16,8 +16,17 @@ export default function EstimateForm({
   subheading = "Commercial or Residential, every project begins with a clear conversation. Share your priorities, tell us where you're building and include any plans you have.",
 }: EstimateFormProps) {
   const [division, setDivision] = useState<"commercial" | "residential">("commercial");
-  const [submitted, setSubmitted] = useState(false);
+  const [fullName, setFullName] = useState("");
+  const [companyOrHomeowner, setCompanyOrHomeowner] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [location, setLocation] = useState("");
+  const [budget, setBudget] = useState("");
+  const [description, setDescription] = useState("");
+  const [file, setFile] = useState<File | null>(null);
   const [fileName, setFileName] = useState<string | null>(null);
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const budgetOptions = [
     "Under $100,000",
@@ -28,9 +37,55 @@ export default function EstimateForm({
     "Not yet established",
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setStatus("submitting");
+    setErrorMessage("");
+
+    try {
+      const formData = new FormData();
+      formData.append("division", division === "commercial" ? "Commercial" : "Residential");
+      formData.append("name", fullName);
+      formData.append("companyOrHomeowner", companyOrHomeowner);
+      formData.append("email", email);
+      formData.append("phone", phone);
+      formData.append("location", location);
+      formData.append("budget", budget);
+      formData.append("description", description);
+      if (file) {
+        formData.append("file", file);
+      }
+
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Failed to send estimate request. Please try again.");
+      }
+
+      setStatus("success");
+    } catch (err: any) {
+      console.error("Submission failed:", err);
+      setStatus("error");
+      setErrorMessage(err.message || "An unexpected error occurred. Please try again.");
+    }
+  };
+
+  const handleReset = () => {
+    setStatus("idle");
+    setFullName("");
+    setCompanyOrHomeowner("");
+    setEmail("");
+    setPhone("");
+    setLocation("");
+    setBudget("");
+    setDescription("");
+    setFile(null);
+    setFileName(null);
+    setErrorMessage("");
   };
 
   return (
@@ -69,7 +124,7 @@ export default function EstimateForm({
               </p>
             </div>
 
-            {submitted ? (
+            {status === "success" ? (
               <div className="py-16 text-center flex flex-col items-center gap-4">
                 <div className="w-12 h-12 bg-[#fff4ed] text-[#8b4513] flex items-center justify-center border border-[#8b4513]">
                   <CheckIcon className="w-6 h-6 text-[#8b4513]" />
@@ -82,8 +137,8 @@ export default function EstimateForm({
                 </p>
                 <button
                   type="button"
-                  onClick={() => setSubmitted(false)}
-                  className="mt-4 text-[13px] font-semibold text-[#8b4513] hover:underline"
+                  onClick={handleReset}
+                  className="mt-4 text-[13px] font-semibold text-[#8b4513] hover:underline cursor-pointer"
                 >
                   Submit another request
                 </button>
@@ -100,7 +155,7 @@ export default function EstimateForm({
                     <button
                       type="button"
                       onClick={() => setDivision("commercial")}
-                      className={`flex items-center gap-3 p-3.5 border transition-all text-left ${
+                      className={`flex items-center gap-3 p-3.5 border transition-all text-left cursor-pointer ${
                         division === "commercial"
                           ? "bg-[#fff4ed] border-[#8b4513]"
                           : "bg-white border-[#d4d8de] hover:border-[#bfc5ce]"
@@ -126,7 +181,7 @@ export default function EstimateForm({
                     <button
                       type="button"
                       onClick={() => setDivision("residential")}
-                      className={`flex items-center gap-3 p-3.5 border transition-all text-left ${
+                      className={`flex items-center gap-3 p-3.5 border transition-all text-left cursor-pointer ${
                         division === "residential"
                           ? "bg-[#fff4ed] border-[#8b4513]"
                           : "bg-white border-[#d4d8de] hover:border-[#bfc5ce]"
@@ -154,11 +209,13 @@ export default function EstimateForm({
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-2">
                     <label className="font-sans font-semibold text-[12px] leading-[15px] text-[#0f172a]">
-                      Full Name
+                      Full Name *
                     </label>
                     <input
                       type="text"
                       required
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
                       placeholder="Your full name"
                       className="border border-[#d4d8de] bg-white p-3.5 font-sans text-[13px] text-[#0f172a] placeholder-[#5e6671] focus:outline-none focus:border-[#8b4513] transition-colors rounded-none"
                     />
@@ -169,6 +226,8 @@ export default function EstimateForm({
                     </label>
                     <input
                       type="text"
+                      value={companyOrHomeowner}
+                      onChange={(e) => setCompanyOrHomeowner(e.target.value)}
                       placeholder="Company or homeowner name"
                       className="border border-[#d4d8de] bg-white p-3.5 font-sans text-[13px] text-[#0f172a] placeholder-[#5e6671] focus:outline-none focus:border-[#8b4513] transition-colors rounded-none"
                     />
@@ -179,11 +238,13 @@ export default function EstimateForm({
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-2">
                     <label className="font-sans font-semibold text-[12px] leading-[15px] text-[#0f172a]">
-                      Email
+                      Email *
                     </label>
                     <input
                       type="email"
                       required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       placeholder="Your email address"
                       className="border border-[#d4d8de] bg-white p-3.5 font-sans text-[13px] text-[#0f172a] placeholder-[#5e6671] focus:outline-none focus:border-[#8b4513] transition-colors rounded-none"
                     />
@@ -194,6 +255,8 @@ export default function EstimateForm({
                     </label>
                     <input
                       type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
                       placeholder="Your phone number"
                       className="border border-[#d4d8de] bg-white p-3.5 font-sans text-[13px] text-[#0f172a] placeholder-[#5e6671] focus:outline-none focus:border-[#8b4513] transition-colors rounded-none"
                     />
@@ -208,7 +271,9 @@ export default function EstimateForm({
                     </label>
                     <input
                       type="text"
-                      placeholder="Project address or area"
+                      value={location}
+                      onChange={(e) => setLocation(e.target.value)}
+                      placeholder="Project address or area (e.g. Houston, Austin)"
                       className="border border-[#d4d8de] bg-white p-3.5 font-sans text-[13px] text-[#0f172a] placeholder-[#5e6671] focus:outline-none focus:border-[#8b4513] transition-colors rounded-none"
                     />
                   </div>
@@ -218,10 +283,11 @@ export default function EstimateForm({
                     </label>
                     <div className="relative">
                       <select
-                        defaultValue=""
+                        value={budget}
+                        onChange={(e) => setBudget(e.target.value)}
                         className="w-full appearance-none border border-[#d4d8de] bg-white p-3.5 pr-8 font-sans text-[13px] text-[#0f172a] focus:outline-none focus:border-[#8b4513] transition-colors rounded-none cursor-pointer"
                       >
-                        <option value="" disabled>
+                        <option value="">
                           Select a budget range
                         </option>
                         {budgetOptions.map((opt) => (
@@ -244,6 +310,8 @@ export default function EstimateForm({
                   </label>
                   <textarea
                     rows={4}
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                     placeholder="Tell us about your goals, scope, timeline and any existing plans…"
                     className="border border-[#d4d8de] bg-white p-3.5 font-sans text-[13px] text-[#0f172a] placeholder-[#5e6671] focus:outline-none focus:border-[#8b4513] transition-colors rounded-none resize-y"
                   />
@@ -259,8 +327,11 @@ export default function EstimateForm({
                       type="file"
                       className="hidden"
                       onChange={(e) => {
-                        const file = e.target.files?.[0];
-                        if (file) setFileName(file.name);
+                        const selectedFile = e.target.files?.[0];
+                        if (selectedFile) {
+                          setFile(selectedFile);
+                          setFileName(selectedFile.name);
+                        }
                       }}
                     />
                     <ArrowUpIcon className="w-6 h-6 text-[#8b4513]" />
@@ -273,6 +344,13 @@ export default function EstimateForm({
                   </label>
                 </div>
 
+                {/* Error Banner */}
+                {status === "error" && (
+                  <div className="p-4 bg-red-50 border border-red-200 text-red-700 text-[13px] font-sans">
+                    {errorMessage || "Failed to send message. Please try again or call us directly."}
+                  </div>
+                )}
+
                 {/* Legal note */}
                 <p className="font-sans text-[12px] leading-[17px] text-[#5e6671]">
                   We&apos;ll use these details to discuss your project inquiry. Please do not include sensitive personal information. Submitting a request does not create a construction agreement.
@@ -281,9 +359,10 @@ export default function EstimateForm({
                 {/* Submit button */}
                 <button
                   type="submit"
-                  className="w-full inline-flex items-center justify-center gap-[18px] bg-[#8b4513] hover:bg-[#73390f] text-white border border-[#8b4513] py-4 px-6 transition-colors rounded-none font-sans font-semibold text-[13px] leading-[16px] cursor-pointer"
+                  disabled={status === "submitting"}
+                  className="w-full inline-flex items-center justify-center gap-[18px] bg-[#8b4513] hover:bg-[#73390f] disabled:bg-[#8b4513]/60 text-white border border-[#8b4513] py-4 px-6 transition-colors rounded-none font-sans font-semibold text-[13px] leading-[16px] cursor-pointer disabled:cursor-not-allowed"
                 >
-                  <span>Submit Estimate Request</span>
+                  <span>{status === "submitting" ? "Sending Request..." : "Submit Estimate Request"}</span>
                   <ArrowUpRight className="w-4 h-4" />
                 </button>
               </form>

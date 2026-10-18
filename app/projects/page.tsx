@@ -17,7 +17,7 @@ export default function ProjectsPage() {
       divisionLabel: "COMMERCIAL",
       title: "OFFICE BUILD-OUT",
       subtitle: "TENANT IMPROVEMENTS / INTERIORS",
-      location: "Location pending",
+      location: "Houston / Austin",
       image: "/images/project-office-buildout.png",
       alt: "Commercial office buildout interior with glass partitions",
       description:
@@ -32,7 +32,7 @@ export default function ProjectsPage() {
       divisionLabel: "RESIDENTIAL",
       title: "CUSTOM MODERN HOME",
       subtitle: "CUSTOM HOME / STRUCTURAL FRAMING",
-      location: "Location pending",
+      location: "Houston / Austin",
       image: "/images/project-custom-modern-home.png",
       alt: "Custom modern residential home architectural framing",
       description:
@@ -47,7 +47,7 @@ export default function ProjectsPage() {
       divisionLabel: "COMMERCIAL",
       title: "COMMERCIAL STOREFRONT",
       subtitle: "RETAIL BUILD-OUT / STOREFRONT",
-      location: "Location pending",
+      location: "Houston / Austin",
       image: "/images/project-commercial-storefront.png",
       alt: "Modern retail storefront exterior glass facade",
       description:
@@ -62,7 +62,7 @@ export default function ProjectsPage() {
       divisionLabel: "RESIDENTIAL",
       title: "LUXURY ADDITION",
       subtitle: "STRUCTURAL ADDITION / CONCRETE",
-      location: "Location pending",
+      location: "Houston / Austin",
       image: "/images/project-luxury-addition.png",
       alt: "Luxury residential architectural addition pavilion",
       description:
@@ -134,7 +134,7 @@ export default function ProjectsPage() {
                   Commercial ambition and residential vision, equally represented. These illustrative concepts show potential scopes, not completed SP10 projects.
                 </p>
                 <p className="font-sans font-semibold text-[11px] uppercase tracking-wider text-[#8b4513]">
-                  ILLUSTRATIVE GALLERY / APPROVED PROJECT CONTENT PENDING
+                  FEATURED WORK & CAPABILITIES
                 </p>
               </div>
             </div>
