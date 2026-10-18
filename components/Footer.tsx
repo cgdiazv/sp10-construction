@@ -106,7 +106,14 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 font-sans text-[11px] text-[#bfc5ce]">
           <p>© 2026 SP10 Construction LLC. All rights reserved.</p>
           <p className="leading-[18px]">
-            License [Number pending] &nbsp;/&nbsp; Production [Credit pending]
+            <a
+              href="https://indevasa.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors underline-offset-2 hover:underline"
+            >
+              Indeva Websites
+            </a>
           </p>
         </div>
       </div>
