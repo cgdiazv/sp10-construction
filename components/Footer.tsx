@@ -22,8 +22,9 @@ export default function Footer() {
               </div>
             </Link>
             <p className="font-sans text-[16px] leading-[26.4px] text-[#bfc5ce] max-w-[540px]">
-              Commercial general contracting. Custom residential construction. Built with
-              precision, from the first plan to the final detail.
+              Commercial general contracting. Custom residential construction. Serving
+              Houston, Austin and surrounding Texas regions. Built with precision, from the first
+              plan to the final detail.
             </p>
           </div>
 
@@ -86,8 +87,8 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Contact Link */}
-            <div className="pt-2">
+            {/* Contact Links & Details */}
+            <div className="pt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px] text-[#bfc5ce]">
               <Link
                 href="/contact"
                 className="font-sans font-semibold text-[14px] leading-[17px] text-white hover:text-[#bfc5ce] transition-colors inline-flex items-center gap-1"
@@ -95,6 +96,20 @@ export default function Footer() {
                 <span>Contact</span>
                 <ArrowUpRight className="w-3.5 h-3.5 text-white" />
               </Link>
+              <span className="text-[#454b54] hidden sm:inline">|</span>
+              <a
+                href="tel:+18327752022"
+                className="font-sans text-[13px] text-[#bfc5ce] hover:text-white transition-colors"
+              >
+                +1 (832) 775-2022
+              </a>
+              <span className="text-[#454b54] hidden sm:inline">|</span>
+              <a
+                href="mailto:info@sp10construction.com"
+                className="font-sans text-[13px] text-[#bfc5ce] hover:text-white transition-colors"
+              >
+                info@sp10construction.com
+              </a>
             </div>
           </div>
         </div>

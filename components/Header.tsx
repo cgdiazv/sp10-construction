@@ -66,10 +66,10 @@ export default function Header({ currentPage }: HeaderProps) {
         {/* Direct Actions */}
         <div className="flex items-center gap-6">
           <a
-            href="tel:"
+            href="tel:+18327752022"
             className="font-sans font-semibold text-[13px] leading-[16px] text-[#0f172a] hover:text-[#8b4513] transition-colors"
           >
-            [Phone number]
+            +1 (832) 775-2022
           </a>
           <Link
             href="/contact"
@@ -98,10 +98,10 @@ export default function Header({ currentPage }: HeaderProps) {
             </div>
           </Link>
           <a
-            href="tel:"
-            className="font-sans font-semibold text-[12px] leading-[15px] text-[#0f172a]"
+            href="tel:+18327752022"
+            className="font-sans font-semibold text-[12px] leading-[15px] text-[#0f172a] hover:text-[#8b4513] transition-colors"
           >
-            [Phone number]
+            +1 (832) 775-2022
           </a>
         </div>
 

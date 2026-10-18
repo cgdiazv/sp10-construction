@@ -315,8 +315,8 @@ export default function EstimateForm({
                   <span className="text-[11px] font-semibold text-[#bfc5ce] uppercase tracking-wider">
                     CALL
                   </span>
-                  <a href="tel:" className="text-[14px] text-white hover:text-[#bfc5ce] transition-colors">
-                    [Phone number]
+                  <a href="tel:+18327752022" className="text-[14px] text-white hover:text-[#bfc5ce] transition-colors">
+                    +1 (832) 775-2022
                   </a>
                 </div>
 
@@ -326,8 +326,8 @@ export default function EstimateForm({
                   <span className="text-[11px] font-semibold text-[#bfc5ce] uppercase tracking-wider">
                     EMAIL
                   </span>
-                  <a href="mailto:" className="text-[14px] text-white hover:text-[#bfc5ce] transition-colors">
-                    [Email address]
+                  <a href="mailto:info@sp10construction.com" className="text-[14px] text-white hover:text-[#bfc5ce] transition-colors">
+                    info@sp10construction.com
                   </a>
                 </div>
 
@@ -335,32 +335,10 @@ export default function EstimateForm({
 
                 <div className="flex flex-col gap-1">
                   <span className="text-[11px] font-semibold text-[#bfc5ce] uppercase tracking-wider">
-                    OFFICE
+                    SERVICE AREA
                   </span>
                   <span className="text-[14px] text-white">
-                    [Office address]
-                  </span>
-                </div>
-
-                <div className="w-full h-[1px] bg-[#343a40]/60" />
-
-                <div className="flex flex-col gap-1">
-                  <span className="text-[11px] font-semibold text-[#bfc5ce] uppercase tracking-wider">
-                    SERVICE REGION
-                  </span>
-                  <span className="text-[14px] text-white">
-                    [Service region]
-                  </span>
-                </div>
-
-                <div className="w-full h-[1px] bg-[#343a40]/60" />
-
-                <div className="flex flex-col gap-1">
-                  <span className="text-[11px] font-semibold text-[#bfc5ce] uppercase tracking-wider">
-                    EMERGENCY SERVICE
-                  </span>
-                  <span className="text-[14px] text-white">
-                    [Emergency availability]
+                    Houston, Austin
                   </span>
                 </div>
               </div>
@@ -368,7 +346,7 @@ export default function EstimateForm({
               <div className="w-full h-[1px] bg-[#343a40]" />
 
               <p className="font-sans text-[12px] leading-[17px] text-[#bfc5ce]">
-                Business contact details and emergency availability are pending confirmation.
+                Commercial general contracting and custom residential construction across Houston and Austin.
               </p>
             </div>
 
