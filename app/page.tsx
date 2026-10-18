@@ -60,19 +60,22 @@ export default function Home() {
             {/* Equal Division Hero Split */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 pt-4">
               {/* Commercial Hero Card */}
-              <div className="relative group overflow-hidden bg-black/40 h-[380px] lg:h-[428px] border border-white/10 flex flex-col justify-between p-6 sm:p-8">
+              <div className="relative group overflow-hidden h-[380px] lg:h-[428px] border border-white/10 flex flex-col justify-between p-6 sm:p-8 bg-[#15181e]">
                 <Image
                   src="/images/hero-commercial.png"
                   alt="Commercial steel beam construction structure"
                   fill
                   priority
-                  className="object-cover -z-10 group-hover:scale-105 transition-transform duration-700 brightness-[0.78]"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
                 />
-                <div className="flex items-center justify-between text-white font-sans text-[12px] font-semibold tracking-wider uppercase">
+                {/* Dark overlay for contrast */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-black/35 pointer-events-none" />
+                <div className="relative z-10 flex items-center justify-between text-white font-sans text-[12px] font-semibold tracking-wider uppercase">
                   <span>COMMERCIAL</span>
                   <span>01 /</span>
                 </div>
-                <div className="flex flex-col items-start gap-4">
+                <div className="relative z-10 flex flex-col items-start gap-4">
                   <h2 className="font-oswald font-medium text-[28px] sm:text-[34px] lg:text-[38px] leading-[1.1] uppercase text-white">
                     BUILT FOR THE WAY YOU WORK.
                   </h2>
@@ -87,19 +90,22 @@ export default function Home() {
               </div>
 
               {/* Residential Hero Card */}
-              <div className="relative group overflow-hidden bg-black/40 h-[380px] lg:h-[428px] border border-white/10 flex flex-col justify-between p-6 sm:p-8">
+              <div className="relative group overflow-hidden h-[380px] lg:h-[428px] border border-white/10 flex flex-col justify-between p-6 sm:p-8 bg-[#15181e]">
                 <Image
                   src="/images/hero-residential.png"
                   alt="Modern architectural custom luxury home"
                   fill
                   priority
-                  className="object-cover -z-10 group-hover:scale-105 transition-transform duration-700 brightness-[0.78]"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
                 />
-                <div className="flex items-center justify-between text-white font-sans text-[12px] font-semibold tracking-wider uppercase">
+                {/* Dark overlay for contrast */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-black/35 pointer-events-none" />
+                <div className="relative z-10 flex items-center justify-between text-white font-sans text-[12px] font-semibold tracking-wider uppercase">
                   <span>RESIDENTIAL</span>
                   <span>02 /</span>
                 </div>
-                <div className="flex flex-col items-start gap-4">
+                <div className="relative z-10 flex flex-col items-start gap-4">
                   <h2 className="font-oswald font-medium text-[28px] sm:text-[34px] lg:text-[38px] leading-[1.1] uppercase text-white">
                     MADE FOR THE WAY YOU LIVE.
                   </h2>
