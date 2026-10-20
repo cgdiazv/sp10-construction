@@ -105,6 +105,16 @@ export default function Footer() {
               </a>
               <span className="text-[#454b54] hidden sm:inline">|</span>
               <a
+                href="tel:+12146176537"
+                className="font-sans text-[13px] text-[#bfc5ce] hover:text-white transition-colors"
+              >
+                +1 (214) 617-6537
+              </a>
+              <span className="font-sans text-[10px] font-medium tracking-wide uppercase text-[#94a3b8] bg-[#2a303c] px-2 py-0.5 rounded-sm">
+                English &amp; Spanish Spoken
+              </span>
+              <span className="text-[#454b54] hidden sm:inline">|</span>
+              <a
                 href="mailto:info@sp10construction.com"
                 className="font-sans text-[13px] text-[#bfc5ce] hover:text-white transition-colors"
               >

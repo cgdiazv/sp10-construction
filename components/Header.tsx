@@ -65,12 +65,26 @@ export default function Header({ currentPage }: HeaderProps) {
 
         {/* Direct Actions */}
         <div className="flex items-center gap-6">
-          <a
-            href="tel:+18327752022"
-            className="font-sans font-semibold text-[13px] leading-[16px] text-[#0f172a] hover:text-[#8b4513] transition-colors"
-          >
-            +1 (832) 775-2022
-          </a>
+          <div className="flex flex-col items-end gap-1">
+            <div className="flex items-center gap-2.5">
+              <a
+                href="tel:+18327752022"
+                className="font-sans font-semibold text-[13px] leading-[16px] text-[#0f172a] hover:text-[#8b4513] transition-colors"
+              >
+                +1 (832) 775-2022
+              </a>
+              <span className="text-[#cbd5e1] text-xs">|</span>
+              <a
+                href="tel:+12146176537"
+                className="font-sans font-semibold text-[13px] leading-[16px] text-[#0f172a] hover:text-[#8b4513] transition-colors"
+              >
+                +1 (214) 617-6537
+              </a>
+            </div>
+            <span className="font-sans text-[10px] font-medium tracking-wide uppercase text-[#64748b]">
+              English &amp; Spanish Spoken
+            </span>
+          </div>
           <Link
             href="/contact"
             className="inline-flex items-center justify-center gap-[18px] bg-[#8b4513] hover:bg-[#73390f] text-white border border-[#8b4513] py-4 px-6 transition-colors rounded-none font-sans font-semibold text-[13px] leading-[16px]"
@@ -84,7 +98,7 @@ export default function Header({ currentPage }: HeaderProps) {
       {/* Mobile Header */}
       <div className="lg:hidden w-full px-6 pt-1 pb-5 flex flex-col gap-3">
         {/* Brand and Phone */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-2">
           <Link href="/" aria-label="SP10 Construction Home">
             <div className="w-[112px] h-[84px] relative flex items-center">
               <Image
@@ -97,12 +111,26 @@ export default function Header({ currentPage }: HeaderProps) {
               />
             </div>
           </Link>
-          <a
-            href="tel:+18327752022"
-            className="font-sans font-semibold text-[12px] leading-[15px] text-[#0f172a] hover:text-[#8b4513] transition-colors"
-          >
-            +1 (832) 775-2022
-          </a>
+          <div className="flex flex-col items-end gap-1 text-right">
+            <div className="flex flex-col xs:flex-row items-end xs:items-center gap-0.5 xs:gap-2">
+              <a
+                href="tel:+18327752022"
+                className="font-sans font-semibold text-[12px] leading-[15px] text-[#0f172a] hover:text-[#8b4513] transition-colors"
+              >
+                +1 (832) 775-2022
+              </a>
+              <span className="text-[#cbd5e1] text-xs hidden xs:inline">|</span>
+              <a
+                href="tel:+12146176537"
+                className="font-sans font-semibold text-[12px] leading-[15px] text-[#0f172a] hover:text-[#8b4513] transition-colors"
+              >
+                +1 (214) 617-6537
+              </a>
+            </div>
+            <span className="font-sans text-[9px] font-medium tracking-wide uppercase text-[#64748b]">
+              English &amp; Spanish Spoken
+            </span>
+          </div>
         </div>
 
         {/* Navigation Row */}

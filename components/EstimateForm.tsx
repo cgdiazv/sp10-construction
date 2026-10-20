@@ -390,13 +390,23 @@ export default function EstimateForm({
               <div className="w-full h-[1px] bg-[#343a40]" />
 
               <div className="flex flex-col gap-5 font-sans">
-                <div className="flex flex-col gap-1">
-                  <span className="text-[11px] font-semibold text-[#bfc5ce] uppercase tracking-wider">
-                    CALL
-                  </span>
-                  <a href="tel:+18327752022" className="text-[14px] text-white hover:text-[#bfc5ce] transition-colors">
-                    +1 (832) 775-2022
-                  </a>
+                <div className="flex flex-col gap-1.5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-semibold text-[#bfc5ce] uppercase tracking-wider">
+                      CALL
+                    </span>
+                    <span className="text-[10px] uppercase font-medium tracking-wider text-[#94a3b8] bg-[#2a303c] px-2 py-0.5 rounded-sm">
+                      English &amp; Spanish Spoken
+                    </span>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <a href="tel:+18327752022" className="text-[14px] text-white hover:text-[#bfc5ce] transition-colors">
+                      +1 (832) 775-2022
+                    </a>
+                    <a href="tel:+12146176537" className="text-[14px] text-white hover:text-[#bfc5ce] transition-colors">
+                      +1 (214) 617-6537
+                    </a>
+                  </div>
                 </div>
 
                 <div className="w-full h-[1px] bg-[#343a40]/60" />
