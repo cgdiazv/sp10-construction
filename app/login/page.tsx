@@ -43,7 +43,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md bg-white p-8 sm:p-10">
         <Link href="/" className="text-sm font-bold text-[#8b4513]">SP10 CONSTRUCTION</Link>
         <h1 className="font-oswald text-4xl uppercase mt-6">Admin sign in</h1>
-        <p className="text-sm text-[#5e6671] mt-2">Sign in with your authorized account to manage projects.</p>
+        <p className="text-sm text-[#5e6671] mt-2">Sign in with your authorized account to manage content.</p>
         <form onSubmit={login} className="mt-8 flex flex-col gap-5">
           <label className="text-sm font-semibold">Email
             <input className="mt-2 w-full border border-[#d4d8de] p-3" type="email" autoComplete="username" required value={email} onChange={(e) => setEmail(e.target.value)} />

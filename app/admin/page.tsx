@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged, signOut } from "firebase/auth";
@@ -9,6 +9,8 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { getFirebase, isFirebaseConfigured } from "@/lib/firebase";
 import { type Project } from "@/lib/projects";
 import { useProjects } from "@/lib/use-projects";
+import { getSavedCover } from "@/lib/project-editor";
+import ProjectEditor, { type PendingImage } from "@/components/ProjectEditor";
 
 const blankProject = (): Project => ({
   id: crypto.randomUUID(),
@@ -24,18 +26,23 @@ const blankProject = (): Project => ({
   media: [],
 });
 
-const inputClass = "mt-2 w-full border border-[#d4d8de] p-3 font-normal";
 const buttonClass = "bg-[#8b4513] text-white px-5 py-3 font-semibold disabled:opacity-50";
 
 export default function AdminPage() {
   const router = useRouter();
   const [authorized, setAuthorized] = useState(false);
   const [authError, setAuthError] = useState(() => isFirebaseConfigured() ? "" : "Firebase is not configured. See the project README for setup.");
+  const [section, setSection] = useState<"projects" | "pages">("projects");
   const [editing, setEditing] = useState<Project | null>(null);
-  const [files, setFiles] = useState<File[]>([]);
+  const [files, setFiles] = useState<PendingImage[]>([]);
+  const filesRef = useRef<PendingImage[]>([]);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
   const { projects, error, loaded } = useProjects();
+
+  useEffect(() => () => {
+    filesRef.current.forEach((item) => URL.revokeObjectURL(item.previewUrl));
+  }, []);
 
   useEffect(() => {
     if (!isFirebaseConfigured()) return;
@@ -75,13 +82,40 @@ export default function AdminPage() {
     setEditing((current) => current ? { ...current, [field]: value } : current);
   }
 
-  async function save(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!editing) return;
-    if (files.some((file) => !["image/jpeg", "image/png", "image/webp", "image/gif"].includes(file.type) || file.size > 10 * 1024 * 1024)) {
+  function clearFiles() {
+    filesRef.current.forEach((item) => URL.revokeObjectURL(item.previewUrl));
+    filesRef.current = [];
+    setFiles([]);
+  }
+
+  function addFiles(selected: File[]) {
+    if (selected.some((file) => !["image/jpeg", "image/png", "image/webp", "image/gif"].includes(file.type) || file.size > 10 * 1024 * 1024)) {
       setMessage("Images must be JPEG, PNG, WebP or GIF files no larger than 10 MB each.");
       return;
     }
+    const added: PendingImage[] = [];
+    try {
+      selected.forEach((file) => added.push({ file, previewUrl: URL.createObjectURL(file) }));
+    } catch (cause) {
+      added.forEach((item) => URL.revokeObjectURL(item.previewUrl));
+      console.error("Could not preview images:", cause);
+      setMessage("Could not preview the selected images. Please try again.");
+      return;
+    }
+    filesRef.current = [...filesRef.current, ...added];
+    setFiles(filesRef.current);
+    setMessage("");
+  }
+
+  function removeFile(previewUrl: string) {
+    URL.revokeObjectURL(previewUrl);
+    filesRef.current = filesRef.current.filter((item) => item.previewUrl !== previewUrl);
+    setFiles(filesRef.current);
+  }
+
+  async function save(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!editing) return;
     if (!editing.media.some((item) => item.type === "image") && files.length === 0) {
       setMessage("Add at least one image to the project.");
       return;
@@ -91,15 +125,13 @@ export default function AdminPage() {
     try {
       const { db, storage } = getFirebase();
       const uploaded = [];
-      for (const file of files) {
+      for (const { file } of files) {
         const imageRef = ref(storage, `projects/${editing.id}/${crypto.randomUUID()}`);
         await uploadBytes(imageRef, file, { contentType: file.type });
         uploaded.push({ type: "image" as const, url: await getDownloadURL(imageRef), alt: editing.title });
       }
       const media = [...editing.media, ...uploaded];
-      const coverImage = media.some((item) => item.type === "image" && item.url === editing.coverImage)
-        ? editing.coverImage
-        : media.find((item) => item.type === "image")!.url;
+      const coverImage = getSavedCover(editing.media, editing.coverImage, files.map((item) => item.previewUrl), uploaded.map((item) => item.url));
       await setDoc(doc(db, "projects", editing.id), {
         ...editing,
         divisionLabel: editing.division.toUpperCase(),
@@ -107,7 +139,7 @@ export default function AdminPage() {
         coverImage,
       });
       setEditing(null);
-      setFiles([]);
+      clearFiles();
       setMessage("Project saved.");
     } catch (cause) {
       console.error("Could not save project:", cause);
@@ -123,7 +155,10 @@ export default function AdminPage() {
     setMessage("");
     try {
       await setDoc(doc(getFirebase().db, "projects", project.id), { deleted: true });
-      if (editing?.id === project.id) setEditing(null);
+      if (editing?.id === project.id) {
+        setEditing(null);
+        clearFiles();
+      }
       setMessage("Project deleted.");
     } catch (cause) {
       console.error("Could not delete project:", cause);
@@ -139,47 +174,50 @@ export default function AdminPage() {
   return (
     <main className="min-h-screen bg-[#f4f5f7] text-[#0f172a]">
       <header className="bg-[#1e2229] text-white px-6 py-6">
-        <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-4">
-          <div><p className="text-xs font-bold tracking-wider text-[#bfc5ce]">SP10 CONSTRUCTION</p><h1 className="font-oswald text-3xl uppercase">Manage projects</h1></div>
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div><p className="text-xs font-bold tracking-wider text-[#bfc5ce]">SP10 CONSTRUCTION</p><h1 className="font-oswald text-3xl uppercase">Admin Panel</h1></div>
           <div className="flex items-center gap-5 text-sm"><Link href="/projects" className="underline">View portfolio</Link><button onClick={async () => { try { await signOut(getFirebase().auth); router.replace("/login"); } catch (cause) { console.error("Sign out failed:", cause); setMessage("Could not sign out. Please try again."); } }} className="underline">Sign out</button></div>
         </div>
       </header>
-      <div className="max-w-6xl mx-auto p-6 sm:py-10">
-        {error && <p role="alert" className="mb-4 text-red-700">{error}</p>}
+      <div className="w-full px-6 py-6 sm:py-10">
+        {section === "projects" && error && <p role="alert" className="mb-4 text-red-700">{error}</p>}
         {message && <p role="status" className="mb-4 text-[#73390f]">{message}</p>}
-        {!loaded && !error && <p className="mb-4">Loading projects...</p>}
-        <div className="grid gap-8 lg:grid-cols-[1fr_2fr]">
-          <section className="bg-white p-6 self-start">
-            <div className="flex justify-between items-center gap-3"><h2 className="font-oswald text-2xl uppercase">Projects</h2><button disabled={!loaded || busy} className={buttonClass} onClick={() => { setEditing(blankProject()); setFiles([]); setMessage(""); }}>Add project</button></div>
-            <ul className="mt-5 divide-y divide-[#e8ebef]">
-              {projects.map((project) => <li key={project.id} className="py-4">
-                <p className="font-semibold">{project.title}</p><p className="text-sm text-[#5e6671]">{project.location}</p>
-                <div className="flex gap-4 mt-2 text-sm"><button disabled={!loaded || busy} className="underline text-[#8b4513]" onClick={() => { setEditing({ ...project, media: [...project.media] }); setFiles([]); setMessage(""); }}>Edit</button><button disabled={!loaded || busy} className="underline text-red-700" onClick={() => remove(project)}>Delete</button></div>
-              </li>)}
-            </ul>
-          </section>
-          <section className="bg-white p-6 sm:p-8">
-            {!editing ? <p className="text-[#5e6671]">Select a project to edit or add a new project.</p> :
-              <form onSubmit={save} className="flex flex-col gap-5">
-                <h2 className="font-oswald text-2xl uppercase">Project details</h2>
-                <label className="text-sm font-semibold">Title<input required maxLength={150} className={inputClass} value={editing.title} onChange={(e) => update("title", e.target.value)} /></label>
-                <label className="text-sm font-semibold">Division<select className={inputClass} value={editing.division} onChange={(e) => update("division", e.target.value)}><option value="residential">Residential</option><option value="commercial">Commercial</option></select></label>
-                <label className="text-sm font-semibold">Subtitle<input required maxLength={200} className={inputClass} value={editing.subtitle} onChange={(e) => update("subtitle", e.target.value)} /></label>
-                <label className="text-sm font-semibold">Location<input required maxLength={150} className={inputClass} value={editing.location} onChange={(e) => update("location", e.target.value)} /></label>
-                <label className="text-sm font-semibold">Description<textarea required maxLength={3000} rows={4} className={inputClass} value={editing.description} onChange={(e) => update("description", e.target.value)} /></label>
-                <label className="text-sm font-semibold">Scope and trades<input required maxLength={1000} className={inputClass} value={editing.scopeItems} onChange={(e) => update("scopeItems", e.target.value)} /></label>
-                <label className="text-sm font-semibold">Scope note<textarea required maxLength={1000} rows={2} className={inputClass} value={editing.scopeNote} onChange={(e) => update("scopeNote", e.target.value)} /></label>
-                <fieldset className="border border-[#d4d8de] p-4"><legend className="font-semibold text-sm px-1">Gallery</legend>
-                  <p className="text-sm text-[#5e6671] mb-3">Choose a cover image and remove unwanted items. Existing videos are retained. Upload JPEG, PNG, WebP or GIF images up to 10 MB each.</p>
-                  {editing.media.map((item, index) => <div key={`${item.url}-${index}`} className="flex flex-wrap items-center gap-3 py-2 border-b border-[#e8ebef] text-sm">
-                    <span className="flex-1 break-all">{item.alt || item.url} ({item.type})</span>
-                    {item.type === "image" && <label><input type="radio" name="cover" checked={editing.coverImage === item.url} onChange={() => update("coverImage", item.url)} /> Cover</label>}
-                    <button type="button" className="text-red-700 underline" onClick={() => setEditing({ ...editing, media: editing.media.filter((_, i) => i !== index) })}>Remove</button>
-                  </div>)}
-                  <label className="block mt-4 text-sm font-semibold">Add images<input type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple className="block mt-2 w-full font-normal" onChange={(e) => setFiles(Array.from(e.target.files ?? []))} /></label>
-                </fieldset>
-                <div className="flex gap-4"><button className={buttonClass} disabled={busy || !loaded}>{busy ? "Saving..." : "Save project"}</button><button type="button" disabled={busy} className="underline" onClick={() => { setEditing(null); setFiles([]); }}>Cancel</button></div>
-              </form>}
+        {section === "projects" && !loaded && !error && <p className="mb-4">Loading projects...</p>}
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)]">
+          <aside className="bg-white p-6 self-start">
+            <nav aria-label="Admin sections" className="flex flex-col items-start gap-4 text-sm font-semibold">
+              <button type="button" disabled={busy} aria-current={section === "projects" ? "page" : undefined} onClick={() => setSection("projects")} className={section === "projects" ? "text-[#8b4513] underline" : "text-[#5e6671] hover:text-[#8b4513]"}>Projects</button>
+              <button type="button" disabled={busy} aria-current={section === "pages" ? "page" : undefined} onClick={() => setSection("pages")} className={section === "pages" ? "text-[#8b4513] underline" : "text-[#5e6671] hover:text-[#8b4513]"}>Pages</button>
+            </nav>
+          </aside>
+          <section className="min-w-0 bg-white p-6 sm:p-8">
+            {section === "pages" ? <><h2 className="font-oswald text-2xl uppercase">Pages</h2><p className="mt-4 text-[#5e6671]">Page management is not available yet.</p></> : editing ?
+              <ProjectEditor project={editing} files={files} busy={busy} loaded={loaded} onUpdate={update} onRemoveMedia={(index) => setEditing((current) => current ? { ...current, media: current.media.filter((_, i) => i !== index) } : current)} onAddFiles={addFiles} onRemoveFile={removeFile} onSave={save} onCancel={() => { setEditing(null); clearFiles(); }} /> :
+              <>
+                <div className="flex flex-wrap justify-between items-center gap-3">
+                  <h2 className="font-oswald text-2xl uppercase">Projects</h2>
+                  <button disabled={!loaded || busy} className={buttonClass} onClick={() => { setEditing(blankProject()); clearFiles(); setMessage(""); }}>Add project</button>
+                </div>
+                <div className="mt-5 overflow-x-auto">
+                  <table className="w-full text-left text-sm">
+                    <thead className="border-b border-[#d4d8de] text-[#5e6671]">
+                      <tr><th scope="col" className="px-3 py-3">Project</th><th scope="col" className="px-3 py-3">Location</th><th scope="col" className="px-3 py-3">Division</th><th scope="col" className="px-3 py-3">Actions</th></tr>
+                    </thead>
+                    <tbody className="divide-y divide-[#e8ebef]">
+                      {projects.map((project) => <tr key={project.id}>
+                        <th scope="row" className="px-3 py-4 font-semibold">{project.title}</th>
+                        <td className="px-3 py-4">{project.location}</td>
+                        <td className="px-3 py-4 capitalize">{project.division}</td>
+                        <td className="px-3 py-4"><div className="flex gap-4">
+                          <button disabled={!loaded || busy} className="underline text-[#8b4513] disabled:opacity-50" onClick={() => { setEditing({ ...project, media: [...project.media] }); clearFiles(); setMessage(""); }} aria-label={`Edit ${project.title}`}>Edit</button>
+                          <button disabled={!loaded || busy} className="underline text-red-700 disabled:opacity-50" onClick={() => remove(project)} aria-label={`Delete ${project.title}`}>Delete</button>
+                        </div></td>
+                      </tr>)}
+                      {loaded && projects.length === 0 && <tr><td colSpan={4} className="px-3 py-4 text-[#5e6671]">No projects yet. Add a project to get started.</td></tr>}
+                    </tbody>
+                  </table>
+                </div>
+              </>}
           </section>
         </div>
       </div>

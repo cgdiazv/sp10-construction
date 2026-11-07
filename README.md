@@ -5,7 +5,9 @@
 The portfolio at `/projects` can be managed at `/admin`. Sign in at `/login`
 with an authorized Firebase email/password account. The editor supports adding,
 editing, and removing projects, uploading images, choosing a cover, and removing
-gallery items. Existing videos remain in the gallery unless removed. The home
+gallery items. The editor previews the project card and gallery, including new
+images, before changes are published with Save project. Existing videos remain
+in the gallery unless removed. The home
 page's illustrative concepts are separate and are not edited here.
 
 ### Firebase setup
